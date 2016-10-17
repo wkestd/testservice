@@ -1,32 +1,36 @@
 package multigold.testservice;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javassist.expr.NewArray;
+
 import com.alibaba.dubbo.config.ApplicationConfig;
 import com.alibaba.dubbo.config.ReferenceConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
-import com.eig.basic.pojo.ListPageResult;
 import com.eig.basic.pojo.Page;
-import com.eig.basic.pojo.PageData;
-import com.gome.multigold.account.pojo.TActBaseAccount;
-import com.gome.multigold.account.pojo.TActCreditaccountDetail;
-import com.gome.multigold.account.pojo.TActLoanaccount;
-import com.gome.multigold.account.service.ISelectAccountService;
-import com.gome.multigold.account.service.ITransPageService;
-import com.gome.multigold.base.pojo.Clientinfo;
-import com.gome.multigold.base.pojo.TPromotionClientDetail;
-import com.gome.multigold.base.service.ClientinfoService;
-import com.gome.multigold.base.service.IActconfigService;
+import com.gome.multigold.GoldCardReqAndResEntity;
 import com.gome.multigold.cms.service.BannerService;
-import com.gome.multigold.core.Const.ConstClass;
-import com.gome.multigold.core.util.DateUtil;
-import com.gome.multigold.goldmanage.service.GoldService;
-import com.gome.multigold.quoteprice.pojo.Rate;
+import com.gome.multigold.domain.StoreDayEndBatch;
+import com.gome.multigold.domain.TPoApplyloans;
 import com.gome.multigold.quoteprice.pojo.RateLog;
 import com.gome.multigold.quoteprice.service.GoldRateService;
+import com.gome.multigold.quoteprice.service.QuotePriceService;
+import com.gome.multigold.quoteprice.service.RateConfigService;
+import com.gome.multigold.quoteprice.service.RateService;
+import com.gome.multigold.service.ClUnionCardService;
+import com.gome.multigold.service.IBusApplyLoansService;
+import com.gome.multigold.service.ICaculateService;
+import com.gome.multigold.service.IEcPayOrderDetail;
+import com.gome.multigold.service.IGoldCardService;
+import com.gome.multigold.service.IOrderFeeService;
+import com.gome.multigold.service.IOrderService;
+import com.gome.multigold.service.SendTaurusSmsService;
+import com.gome.multigold.service.StoreDayEndBatchService;
+import com.gome.multigold.service.TPoApprovalRechargeService;
 /**
  * dubbo本地测试服务1
  * @author anliguo
@@ -54,26 +58,8 @@ public class TestService {
 		GoldRateService imService = reference.get();
 		//GoldService imService = reference.get(); // 注意：此代理对象内部封装了所有通讯细节，对象较重，请缓存复用
 		try {
-			String date = "2015-10-10 10:10:10";
-			System.out.println("当前时间：：：：："+date);
-			List<RateLog> rates = imService.selectRateListByDate(date);
-			System.out.println("rates的数量：：："+rates.size());
-			
-			System.out.println("现在牌价:::"+imService.getGoldPrice());
-			
-			//TActBaseAccount acc = imService.selBaseAccInfo("10003146");
-		//	System.out.println(acc.getStatus());
-			
-//			Page page = new Page();
-//			page.setPage(0);
-//			page.setRows(1);
-//			PageData pd = new PageData();
-//			pd.put("bizCode", "");
-//			pd.put("accountCode", "1000002792");
-//			pd.put("userCode", pd.get("accountCode"));
-//			page.setPd(pd);
-//			//CX0041000002756
-//			System.out.println(imService.getableApply().get(0).getGoldName());
+			String date = "2016-10-10 10:10:10";
+			System.out.println(imService.selectRateListByDate("2016-10-10 01:01:01"));	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
